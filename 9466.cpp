@@ -1,69 +1,58 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   9466.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dhyeon <dhyeon@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/03 07:24:09 by dhyeon            #+#    #+#             */
+/*   Updated: 2021/04/03 07:24:10 by dhyeon           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <iostream>
-#include <vector>
-
 using namespace std;
-vector<int> arr[100001];
-int check[100001]; // 0 : unvisited 1: team
-int A, flag;
 
-void check_team(int num)
-{
-	int v = arr[num][0];
-	if (check[v] == 1)
-		flag = -1;
-	else if (A == v)
-	{
-		flag = 0;
-	}
-	else
-	{
-		check[v] = 1;
-		check_team(v);
-	}
-}
+int arr[100001];
+int inde[100001];
+bool visited[100001];
+int ret;
 
-void reset_team(int u)
+void check_team(int a)
 {
-	int v = arr[u][0];
-	if (check[v] != 0)
-	{
-		check[v] = 0;
-		reset_team(v);
-	}
+	visited[a] = true;
+	inde[arr[a]]--;
+	ret++;
+	if (inde[arr[a]] == 0)
+		check_team(arr[a]);
 }
 
 int main(void)
 {
-	int T, N;
+	int T;
 	cin >> T;
 	while (T--)
 	{
-		cin >> N;
-		for (int i = 1; i <= N; i++)
+		int n;
+		cin >> n;
+		for (int i = 1; i <= n; i++) // 입력받기 - indegree
 		{
-			int a;
-			cin >> a;
-			arr[i].push_back(a);
+			cin >> arr[i];
+			inde[arr[i]]++;
 		}
-		int ret = 0;
-		for (int i = 1; i <= N; i++)
+		ret = 0;
+		for (int i = 1; i <= n; i++)
 		{
-			if (check[i] != 1)
-			{
-				A = i;
+			if (inde[i] == 0 && visited[i] == false)
 				check_team(i);
-				if (flag == -1)
-				{
-					ret++;
-					reset_team(i);
-				}
-			}
 		}
 		cout << ret << '\n';
-		for (int i = 1; i <= 100001; i++)
+
+		for(int i = 0; i <= n; i++)
 		{
-			arr[i].clear();
-			check[i] = 0;
+			arr[i] = 0;
+			visited[i] = false;
+			inde[i] = 0;
 		}
 	}
 }
