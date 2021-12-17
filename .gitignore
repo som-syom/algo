@@ -2,5 +2,6 @@
 *
 !/**/
 !*.cpp
+!*.js
 !.vscode
 !.gitignore
