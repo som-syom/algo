@@ -11,24 +11,12 @@ const swap = (idx1, idx2) => {
   heap[idx2] = tmp;
 };
 
-const comp = (a, b) => {
-  // a 가 클때 true 리턴
-  if (Math.abs(heap[a]) === Math.abs(heap[b])) {
-    if (heap[a] > heap[b]) return true;
-    else return false;
-  } else if (Math.abs(heap[a]) > Math.abs(heap[b])) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
 const push = (x) => {
   if (size === 0) heap[1] = x;
   else {
     let pos = size + 1;
     heap[pos] = x;
-    while (comp(Math.floor(pos / 2), pos) && pos !== 1) {
+    while (heap[pos] < heap[Math.floor(pos / 2)] && pos !== 1) {
       swap(pos, Math.floor(pos / 2));
       pos = Math.floor(pos / 2);
     }
@@ -47,10 +35,10 @@ const pop = () => {
   heap[pos] = heap[size];
   heap.pop();
   while (
-    (heap[pos * 2] && comp(pos, pos * 2)) ||
-    (heap[pos * 2 + 1] && comp(pos, pos * 2 + 1))
+    (heap[pos * 2] && heap[pos] > heap[pos * 2]) ||
+    (heap[pos * 2 + 1] && heap[pos] > heap[pos * 2 + 1])
   ) {
-    if (comp(pos * 2, pos * 2 + 1)) {
+    if (heap[pos * 2] > heap[pos * 2 + 1]) {
       swap(pos, pos * 2 + 1);
       pos = pos * 2 + 1;
     } else {
@@ -61,16 +49,20 @@ const pop = () => {
   size--;
 };
 
-let res = "";
-
 for (let i = 1; i <= N; i++) {
-  let num = +input[i];
-
-  if (num === 0) {
-    res += top() + "\n";
-    pop();
-  } else {
-    push(num);
-  }
+  push(+input[i]);
 }
+
+let res = 0;
+
+while (size > 1) {
+  const first = top();
+  pop();
+  const second = top();
+  pop();
+  let sum = first + second;
+  res += sum;
+  push(sum);
+}
+
 console.log(res);
