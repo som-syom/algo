@@ -21,9 +21,9 @@ function solution(id_list, report, k) {
             }
         }
     }
-    // console.log(report_list, ban_list);
+
     for (let i = 0; i < id_len; i++) {
-        [...ban_list].forEach((name) => {
+        ban_list.forEach((name) => {
             if (report_list[id_list[i]].has(name))
                 answer[i]++;
         })
