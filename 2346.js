@@ -1,7 +1,10 @@
 const input = require("fs").readFileSync("/dev/stdin").toString().split("\n");
 
-const N = +input[0];
-const nums = input[1].split(" ").map((el, idx) => [+el, idx + 1]);
+const N = Number(input.shift());
+const nums = input
+  .shift()
+  .split(" ")
+  .map((el, idx) => [+el, idx + 1]);
 let cur = nums[0][0] > 0 ? nums[0][0] - 1 : nums[0][0] + 1;
 let res = "" + 1;
 nums.shift();
