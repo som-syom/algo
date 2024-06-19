@@ -1,4 +1,4 @@
-# [Gold V] 이진 검색 트리 - 5639 
+# [Gold IV] 이진 검색 트리 - 5639 
 
 [문제 링크](https://www.acmicpc.net/problem/5639) 
 
@@ -8,7 +8,11 @@
 
 ### 분류
 
-그래프 이론(graphs), 그래프 탐색(graph_traversal), 재귀(recursion), 트리(trees)
+그래프 이론, 그래프 탐색, 재귀, 트리
+
+### 제출 일자
+
+2022년 4월 14일 03:36:11
 
 ### 문제 설명
 
